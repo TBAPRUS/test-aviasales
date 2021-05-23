@@ -1,0 +1,19 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.container > * {
+  width: 100%;
+}
+
+.title {
+  color: rgba(63, 63, 63, 0.473);
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.info {
+  color: rgba(63, 63, 63, 0.8);
+  font-weight: bold;
+}

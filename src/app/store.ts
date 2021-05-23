@@ -1,9 +1,13 @@
-import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import counterReducer from '../features/counter/counterSlice';
+import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
+import transferFilterReducer from "../features/transferFilter/transferFilterSlice";
+import transferSortReducer from "../features/transferSort/transferSortSlice";
+import ticketsListReducer from "../features/ticketsList/ticketsListSlice";
 
 export const store = configureStore({
   reducer: {
-    counter: counterReducer,
+    transferFilter: transferFilterReducer,
+    transferSort: transferSortReducer,
+    ticketsList: ticketsListReducer,
   },
 });
 
