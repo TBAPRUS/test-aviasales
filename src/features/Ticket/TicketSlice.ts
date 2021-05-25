@@ -1,4 +1,8 @@
-export interface TicketInterface {
+export interface TicketInterface extends AviasalesTicketInterface {
+  id: number;
+}
+
+export interface AviasalesTicketInterface {
   // Цена в рублях
   price: number;
   // Код авиакомпании (iata)

@@ -1,9 +1,11 @@
-import React from "react";
+import React, { LegacyRef } from "react";
 import { TicketContentRow } from "../ticketContentRow/TicketContentRow";
 import styles from "./Ticket.module.css";
 import { TicketInterface } from "./TicketSlice";
 
-export interface TicketProps extends TicketInterface {}
+export interface TicketProps extends TicketInterface {
+  containerRef?: LegacyRef<HTMLElement>
+}
 
 function priceToStr(price: number) {
   let priceStr: string = price.toString();
@@ -26,7 +28,7 @@ function priceToStr(price: number) {
 export function Ticket(props: TicketProps) {
   const price = priceToStr(props.price);
   return (
-    <article className={styles.ticket}>
+    <article ref={props.containerRef} className={styles.ticket}>
       <div className={styles.header}>
         <h3 className={styles.price}>{price}</h3>
         <div></div>

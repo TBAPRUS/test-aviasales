@@ -31,6 +31,9 @@ export const fetchTickets = createAsyncThunk(
   }
 );
 
+let id = 0;
+const maxTicketsCount = 500;
+
 const ticketsListSlice = createSlice({
   name: "ticketsList",
   initialState,
@@ -54,8 +57,17 @@ const ticketsListSlice = createSlice({
       })
       .addCase(fetchTickets.fulfilled, (state, action) => {
         state.isAll = action.payload.stop;
-        state.tickets.push(...action.payload.tickets);
         state.status = "success";
+        for (const ticket of action.payload.tickets) {
+          if (state.tickets.length >= maxTicketsCount) {
+            state.isAll = true;
+            break;
+          }
+          state.tickets.push({ ...ticket, id: id++ });
+        }
+        // state.tickets.push(
+        //   ...action.payload.tickets.map((ticket) => ({ ...ticket, id: id++ }))
+        // );
       })
       .addCase(fetchTickets.rejected, (state, action) => {
         state.status = "failed";
