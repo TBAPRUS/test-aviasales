@@ -1,10 +1,10 @@
 import React, { LegacyRef } from "react";
-import { TicketContentRow } from "../ticketContentRow/TicketContentRow";
+import TicketContentRow from "../TicketContentRow/TicketContentRow";
 import styles from "./Ticket.module.css";
-import { TicketInterface } from "./TicketSlice";
+import { TicketInterface } from "../../store/types/ticketTypes";
 
 export interface TicketProps extends TicketInterface {
-  containerRef?: LegacyRef<HTMLElement>
+  containerRef?: LegacyRef<HTMLElement>;
 }
 
 function priceToStr(price: number) {
@@ -25,7 +25,7 @@ function priceToStr(price: number) {
   return temp.join(" ") + " Р";
 }
 
-export function Ticket(props: TicketProps) {
+export default function Ticket(props: TicketProps) {
   const price = priceToStr(props.price);
   return (
     <article ref={props.containerRef} className={styles.ticket}>

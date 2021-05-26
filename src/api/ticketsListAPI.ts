@@ -1,5 +1,5 @@
 import axios, { AxiosResponse, AxiosError } from "axios";
-import { TicketInterface } from "../Ticket/TicketSlice";
+import { TicketInterface } from "../store/types/ticketTypes";
 
 export const fetchSearchId = () =>
   new Promise<string>((resolve, reject) =>

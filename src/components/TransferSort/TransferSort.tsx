@@ -1,12 +1,12 @@
 import React from "react";
-import { useAppDispatch, useAppSelector } from "../../app/hooks";
-
+import { useSelector, useDispatch } from "react-redux";
 import styles from "./TransferSort.module.css";
-import { selectTransferSort, cheapest, fastest } from "./transferSortSlice";
+import { cheapest, fastest } from "../../store/actions/transferSortActions";
+import { selectTransferSort } from "../../store/reducers/transferSortReducer";
 
-export function TransferSort() {
-  const state = useAppSelector(selectTransferSort);
-  const dispatch = useAppDispatch();
+export default function TransferSort() {
+  const state = useSelector(selectTransferSort);
+  const dispatch = useDispatch();
 
   return (
     <aside className={styles.container}>

@@ -1,11 +1,11 @@
 import React from 'react';
 
-import { RightSide } from './features/rightSide/RightSide';
-import { LeftSide } from './features/leftSide/LeftSide';
-import { Header } from './features/header/Header';
+import RightSide from '../RightSide/RightSide';
+import LeftSide from '../LeftSide/LeftSide';
+import Header from '../Header/Header';
 import styles from './App.module.css';
 
-function App() {
+export default function App() {
   return (
     <div className={styles.app}>
       <Header />
@@ -16,5 +16,3 @@ function App() {
     </div>
   );
 }
-
-export default App;

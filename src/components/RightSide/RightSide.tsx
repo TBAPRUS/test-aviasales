@@ -1,10 +1,9 @@
 import React from 'react';
-import { TicketsList } from '../ticketsList/TicketsList';
-
-import { TransferSort } from "../transferSort/TransferSort";
+import TicketsList from '../TicketsList/TicketsList';
+import TransferSort from "../TransferSort/TransferSort";
 import styles from './RightSide.module.css';
 
-export function RightSide() {
+export default function RightSide() {
   return (
     <div className={styles.container} >
       <TransferSort />

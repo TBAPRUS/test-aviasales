@@ -1,21 +1,18 @@
 import { useCallback, useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { Ticket } from "../Ticket/Ticket";
-import {
-  selectTicketsList,
-  fetchSearchId,
-  fetchTickets,
-} from "./ticketsListSlice";
-import { Loading } from "../loading/Loading";
+import { useSelector, useDispatch } from "react-redux";
+import Ticket from "../Ticket/Ticket";
+import Loading from "../Loading/Loading";
 import styles from "./TicketsList.module.css";
-import { selectTransferSort } from "../transferSort/transferSortSlice";
-import { selectTransferFilter } from "../transferFilter/transferFilterSlice";
-import { TicketInterface } from "../Ticket/TicketSlice";
+import { TicketInterface } from "../../store/types/ticketTypes";
+import { selectTransferSort } from "../../store/reducers/transferSortReducer";
+import { selectTransferFilter } from "../../store/reducers/transferFilterReducer";
+import { fetchSearchId, fetchTickets } from "../../store/actions/ticketsListActions";
+import { selectTicketsList } from "../../store/reducers/ticketsListReducer";
 
-export function TicketsList() {
-  const ticketsList = useAppSelector(selectTicketsList);
-  const transferSort = useAppSelector(selectTransferSort);
-  const transferFilter = useAppSelector(selectTransferFilter);
+export default function TicketsList() {
+  const ticketsList = useSelector(selectTicketsList);
+  const transferSort = useSelector(selectTransferSort);
+  const transferFilter = useSelector(selectTransferFilter);
   const [isError, setIsError] = useState(false);
   const [ticketHeight, setTicketHeight] = useState(0);
   const [ticketSpace, setTicketSpace] = useState(0);
@@ -24,7 +21,7 @@ export function TicketsList() {
   const [scrollLength, setScrollLength] = useState(0);
   const [lastPageYOffset, setLastPageYOffset] = useState(0);
   const [startList, setStartList] = useState(0);
-  const dispatch = useAppDispatch();
+  const dispatch = useDispatch();
   const ticketCountMargin = 2;
 
   useEffect(() => {

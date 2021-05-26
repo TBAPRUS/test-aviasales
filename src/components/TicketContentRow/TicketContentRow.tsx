@@ -1,5 +1,5 @@
 import React from "react";
-import { TicketInterface } from "../Ticket/TicketSlice";
+import { TicketInterface } from "../../store/types/ticketTypes";
 import styles from "./TicketContentRow.module.css";
 
 function addZero(el: number | string, len: number = 2) {
@@ -34,7 +34,7 @@ function stopsToStr(stops: string[]): string {
   return stops.join(", ");
 }
 
-export function TicketContentRow(props: TicketInterface["segments"][0]) {
+export default function TicketContentRow(props: TicketInterface["segments"][0]) {
   const path = `${props.origin} - ${props.destination}`;
   const date = dateAndDurationToStr(props.date, props.duration);
   const duration = durationToStr(props.duration);

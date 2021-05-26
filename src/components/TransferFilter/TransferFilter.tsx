@@ -1,13 +1,12 @@
 import React from 'react';
-
+import { useSelector, useDispatch } from 'react-redux';
 import styles from './TransferFilter.module.css';
+import { changeAllTransfers, changeTransfers } from '../../store/actions/transferFilterActions';
+import { selectTransferFilter, TransferFilterItem } from '../../store/reducers/transferFilterReducer';
 
-import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { selectTransferFilter, TransferFilterItem, changeTransfers, changeAllTransfers } from './transferFilterSlice'
-
-export function TransferFilter() {
-  const state = useAppSelector(selectTransferFilter);
-  const dispatch = useAppDispatch();
+export default function TransferFilter() {
+  const state = useSelector(selectTransferFilter);
+  const dispatch = useDispatch();
   const values = Object.values(state);
   const all = values.reduce((acc: boolean, cur: TransferFilterItem) => acc && cur.checked, true);
 

@@ -6,7 +6,7 @@ export interface LoadingProps {
   size?: number;
 }
 
-export function Loading(props: LoadingProps) {
+export default function Loading(props: LoadingProps) {
   let colors: string[] = [];
   if (props.colors && props.colors !== "default") {
     colors = !Array.isArray(props.colors) ? [props.colors] : [...props.colors];
