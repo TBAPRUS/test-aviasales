@@ -1,9 +1,9 @@
-import React from 'react';
+import React from "react";
 
-import RightSide from '../RightSide/RightSide';
-import LeftSide from '../LeftSide/LeftSide';
-import Header from '../Header/Header';
-import styles from './App.module.css';
+import RightSide from "../RightSide/RightSide";
+import LeftSide from "../LeftSide/LeftSide";
+import Header from "../Header/Header";
+import styles from "./App.module.css";
 
 export default function App() {
   return (

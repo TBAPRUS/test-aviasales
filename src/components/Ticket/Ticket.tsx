@@ -1,11 +1,12 @@
-import React, { LegacyRef } from "react";
+import React from "react";
 import TicketContentRow from "../TicketContentRow/TicketContentRow";
 import styles from "./Ticket.module.css";
 import { TicketInterface } from "../../store/types/ticketTypes";
+import { InfiniteScrollContainerElementProps } from "../InfiniteScrollContainer/InfiniteScrollContainer";
 
-export interface TicketProps extends TicketInterface {
-  containerRef?: LegacyRef<HTMLElement>;
-}
+export interface TicketProps
+  extends TicketInterface,
+    InfiniteScrollContainerElementProps {}
 
 function priceToStr(price: number) {
   let priceStr: string = price.toString();

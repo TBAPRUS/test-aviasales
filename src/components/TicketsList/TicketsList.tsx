@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Ticket from "../Ticket/Ticket";
 import Loading from "../Loading/Loading";
@@ -6,23 +6,19 @@ import styles from "./TicketsList.module.css";
 import { TicketInterface } from "../../store/types/ticketTypes";
 import { selectTransferSort } from "../../store/reducers/transferSortReducer";
 import { selectTransferFilter } from "../../store/reducers/transferFilterReducer";
-import { fetchSearchId, fetchTickets } from "../../store/actions/ticketsListActions";
+import {
+  fetchSearchId,
+  fetchTickets,
+} from "../../store/actions/ticketsListActions";
 import { selectTicketsList } from "../../store/reducers/ticketsListReducer";
+import InfiniteScrollContainer, { InfiniteScrollContainerElement } from "../InfiniteScrollContainer/InfiniteScrollContainer";
 
 export default function TicketsList() {
   const ticketsList = useSelector(selectTicketsList);
   const transferSort = useSelector(selectTransferSort);
   const transferFilter = useSelector(selectTransferFilter);
   const [isError, setIsError] = useState(false);
-  const [ticketHeight, setTicketHeight] = useState(0);
-  const [ticketSpace, setTicketSpace] = useState(0);
-  const [ticketCountOnScreen, setTicketCountOnScreen] = useState(0);
-  const [startTicketIndex, setStartTicketIndex] = useState(0);
-  const [scrollLength, setScrollLength] = useState(0);
-  const [lastPageYOffset, setLastPageYOffset] = useState(0);
-  const [startList, setStartList] = useState(0);
   const dispatch = useDispatch();
-  const ticketCountMargin = 2;
 
   useEffect(() => {
     dispatch(fetchSearchId());
@@ -48,81 +44,10 @@ export default function TicketsList() {
     }
   }, [dispatch, ticketsList.status, ticketsList.searchId]);
 
-  useEffect(() => {
-    if (
-      scrollLength >
-      ticketHeight +
-        ticketSpace +
-        startList +
-        (ticketCountMargin + 1) * ticketHeight +
-        ticketCountMargin * ticketSpace
-    ) {
-      window.scrollBy(0, -(ticketHeight + ticketSpace));
-      setLastPageYOffset(window.pageYOffset);
-      setStartTicketIndex((startTicketIndex) => startTicketIndex + 1);
-      setScrollLength(
-        (scrollLength) => scrollLength - (ticketHeight + ticketSpace)
-      );
-    } else if (
-      scrollLength <
-      startList +
-        ticketCountMargin * ticketHeight +
-        (ticketCountMargin - 1) * ticketSpace
-    ) {
-      if (startTicketIndex > 0) {
-        window.scrollBy(0, ticketHeight + ticketSpace);
-        setLastPageYOffset(window.pageYOffset);
-        setStartTicketIndex((startTicketIndex) =>
-          startTicketIndex > 0 ? startTicketIndex - 1 : 0
-        );
-        setScrollLength(
-          (scrollLength) => scrollLength + ticketHeight + ticketSpace
-        );
-      }
-    }
-  }, [scrollLength, ticketHeight, ticketSpace, startTicketIndex, startList]);
 
-  useEffect(() => {
-    const listener = (e: Event) => {
-      let newLastPageYOffset = window.pageYOffset;
-      const difference = window.pageYOffset - lastPageYOffset;
-      setScrollLength((scrollLength) => scrollLength + difference);
-      setLastPageYOffset(newLastPageYOffset);
-    };
-    window.addEventListener("scroll", listener);
-    return () => {
-      window.removeEventListener("scroll", listener);
-    };
-  }, [
-    ticketCountMargin,
-    ticketHeight,
-    ticketSpace,
-    startList,
-    lastPageYOffset,
-    scrollLength,
-  ]);
-
-  useEffect(() => {
-    setTicketCountOnScreen(window.innerHeight / ticketHeight);
-  }, [ticketHeight]);
-
-  const ticketRef = useCallback((node: HTMLElement) => {
-    if (node) {
-      const parent = node.parentElement;
-      if (parent) {
-        setStartList(parent.getBoundingClientRect().top + window.scrollY);
-        setTicketSpace(
-          parent.children[1].getBoundingClientRect().top -
-            parent.children[0].getBoundingClientRect().bottom
-        );
-      }
-      setTicketHeight(node.getBoundingClientRect().height);
-    }
-  }, []);
-
-  let colors = "default";
+  let color: string = "";
   if (isError) {
-    colors = "red";
+    color = "red";
   }
 
   let list: TicketInterface[] = [];
@@ -148,26 +73,13 @@ export default function TicketsList() {
         available.includes(ticket.segments[1].stops.length)
     );
   }
-  list = list.slice(
-    startTicketIndex,
-    startTicketIndex + ticketCountOnScreen + (ticketCountMargin + 2) * 2
-  );
-  const firstTicket = list.shift();
-  const tickets: JSX.Element[] = list.map((ticket) => (
-    <Ticket key={ticket.id} {...ticket} />
-  ));
-  if (firstTicket) {
-    tickets.unshift(
-      <Ticket key={firstTicket.id} containerRef={ticketRef} {...firstTicket} />
-    );
-  }
 
   return (
     <section className={styles.list}>
       {!ticketsList.isAll ? (
-        <Loading colors={colors} size={80} />
-      ) : firstTicket ? (
-        tickets
+        <Loading color={color} size={80} />
+      ) : list.length ? (
+        <InfiniteScrollContainer elements={list} elementJSX={Ticket as InfiniteScrollContainerElement} />
       ) : (
         <h2>Билетов нет</h2>
       )}

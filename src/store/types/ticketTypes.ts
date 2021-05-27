@@ -1,6 +1,6 @@
-export interface TicketInterface extends AviasalesTicketInterface {
-  id: number;
-}
+import { Indexed } from "./indexedTypes";
+
+export interface TicketInterface extends AviasalesTicketInterface, Indexed {}
 
 export interface AviasalesTicketInterface {
   // Цена в рублях

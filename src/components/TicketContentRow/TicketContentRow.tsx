@@ -34,7 +34,9 @@ function stopsToStr(stops: string[]): string {
   return stops.join(", ");
 }
 
-export default function TicketContentRow(props: TicketInterface["segments"][0]) {
+export default function TicketContentRow(
+  props: TicketInterface["segments"][0]
+) {
   const path = `${props.origin} - ${props.destination}`;
   const date = dateAndDurationToStr(props.date, props.duration);
   const duration = durationToStr(props.duration);
