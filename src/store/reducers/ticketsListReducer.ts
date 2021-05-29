@@ -16,7 +16,7 @@ export interface TicketsListState {
   status: statusType;
 }
 
-const initialState: TicketsListState = {
+export const initialState: TicketsListState = {
   tickets: [],
   isAll: false,
   searchId: "",
@@ -24,8 +24,6 @@ const initialState: TicketsListState = {
 };
 
 export const selectTicketsList = (state: RootState) => state.ticketsList;
-
-let id = 0;
 
 const reducer = (
   state: TicketsListState = initialState,
@@ -41,7 +39,7 @@ const reducer = (
     case ADD_TICKETS:
       return {
         ...state,
-        tickets: action.payload.map((ticket) => ({ ...ticket, id: id++ })),
+        tickets: [...state.tickets, ...action.payload],
       };
     default:
       return state;

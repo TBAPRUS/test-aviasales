@@ -18,7 +18,7 @@ export interface TransferFilterState {
   threeTransfers: TransferFilterItem;
 }
 
-const initialState: TransferFilterState = {
+export const initialState: TransferFilterState = {
   noTransfers: {
     title: "Без пересадок",
     name: "noTransfers",

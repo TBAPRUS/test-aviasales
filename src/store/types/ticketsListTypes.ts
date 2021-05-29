@@ -1,4 +1,4 @@
-import { AviasalesTicketInterface } from "./ticketTypes";
+import { TicketInterface } from "./ticketTypes";
 
 export type statusType = "success" | "failed" | "loading";
 
@@ -21,7 +21,7 @@ export type TicketsListActionSetSearchId = {
 };
 export type TicketsListActionAddTickets = {
   type: typeof ADD_TICKETS;
-  payload: AviasalesTicketInterface[];
+  payload: TicketInterface[];
 };
 
 export type TicketsListAction =

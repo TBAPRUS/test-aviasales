@@ -1,5 +1,5 @@
 import axios, { AxiosResponse, AxiosError } from "axios";
-import { TicketInterface } from "../store/types/ticketTypes";
+import { AviasalesTicketInterface } from "../store/types/ticketTypes";
 
 export const fetchSearchId = () =>
   new Promise<string>((resolve, reject) =>
@@ -13,7 +13,7 @@ export const fetchSearchId = () =>
 
 export interface TicketsResponse {
   stop: boolean;
-  tickets: TicketInterface[];
+  tickets: AviasalesTicketInterface[];
 }
 
 export const fetchTickets = (searchId: string) =>

@@ -3,6 +3,7 @@ import { ThunkAction } from "redux-thunk";
 import * as api from "../../api/ticketsListAPI";
 import { selectTicketsList } from "../reducers/ticketsListReducer";
 import { RootState } from "../store";
+import { IndexElements } from "../types/indexedTypes";
 import {
   ADD_TICKETS,
   CHANGE_IS_ALL,
@@ -14,7 +15,7 @@ import {
   TicketsListActionChangeStatus,
   TicketsListActionSetSearchId,
 } from "../types/ticketsListTypes";
-import { AviasalesTicketInterface } from "../types/ticketTypes";
+import { TicketInterface } from "../types/ticketTypes";
 
 export const changeStatus = (
   status: statusType
@@ -27,7 +28,7 @@ export const setSearchId = (
   searchId: string
 ): TicketsListActionSetSearchId => ({ type: SET_SEARCH_ID, payload: searchId });
 export const addTickets = (
-  tickets: AviasalesTicketInterface[]
+  tickets: TicketInterface[]
 ): TicketsListActionAddTickets => ({ type: ADD_TICKETS, payload: tickets });
 
 export const fetchSearchId =
@@ -41,13 +42,15 @@ export const fetchSearchId =
     }
   };
 
+const indexElements = new IndexElements();
+
 export const fetchTickets =
   (searchId: string): ThunkAction<void, RootState, unknown, AnyAction> =>
   async (dispatch, getState) => {
     dispatch(changeStatus("loading"));
     try {
       const response = await api.fetchTickets(searchId);
-      dispatch(addTickets(response.tickets));
+      dispatch(addTickets(indexElements.index(response.tickets)));
       const isAll = selectTicketsList(getState()).isAll;
       if (isAll !== response.stop) {
         dispatch(changeIsAll(response.stop));

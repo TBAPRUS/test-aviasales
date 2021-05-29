@@ -12,7 +12,6 @@ const reducer = combineReducers({
 });
 
 export const store = createStore(reducer, applyMiddleware(thunk, logger));
-console.log(store);
 
 export type AppDispatch = typeof store.dispatch;
 export type RootState = ReturnType<typeof store.getState>;

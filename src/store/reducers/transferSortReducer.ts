@@ -10,7 +10,7 @@ export interface TransferSortState {
   fastest: boolean;
 }
 
-const initialState: TransferSortState = {
+export const initialState: TransferSortState = {
   cheapest: true,
   fastest: false,
 };
