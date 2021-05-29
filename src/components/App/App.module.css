@@ -7,6 +7,16 @@
   display: flex;
 }
 
+@media only screen and (max-width: 935px) {
+  .app {
+    width: 90%;
+  }
+
+  .main {
+    flex-direction: column;
+  }
+}
+
 .main > *:first-child {
   margin-right: 25px;
 }
