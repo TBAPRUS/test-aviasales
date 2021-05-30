@@ -45,16 +45,16 @@ export default function TicketContentRow(
   return (
     <div className={styles.container}>
       <div>
-        <p className={styles.title}>{path}</p>
-        <p className={styles.info}>{date}</p>
+        <p className={`${styles.text} ${styles.title}`}>{path}</p>
+        <p className={`${styles.text} ${styles.info}`}>{date}</p>
       </div>
       <div>
-        <p className={styles.title}>В ПУТИ</p>
-        <p className={styles.info}>{duration}</p>
+        <p className={`${styles.text} ${styles.title}`}>В ПУТИ</p>
+        <p className={`${styles.text} ${styles.info}`}>{duration}</p>
       </div>
       <div>
-        <p className={styles.title}>{stopsTitle}</p>
-        <p className={styles.info}>{stops}</p>
+        <p className={`${styles.text} ${styles.title}`}>{stopsTitle}</p>
+        <p className={`${styles.text} ${styles.info}`}>{stops}</p>
       </div>
     </div>
   );

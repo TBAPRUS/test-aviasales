@@ -31,12 +31,12 @@
 
 .price {
   color: rgb(120, 84, 189);
-  font-size: 36px;
+  font-size: 3rem;
   padding: 30px 0;
 }
 
 .carrier {
-  font-size: 36px;
+  font-size: 3rem;
   font-weight: bold;
   color: rgba(63, 63, 63, 0.8);
 }

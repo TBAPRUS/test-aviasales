@@ -17,3 +17,7 @@
   color: rgba(63, 63, 63, 0.8);
   font-weight: bold;
 }
+
+.text {
+  font-size: 1.5rem;
+}
